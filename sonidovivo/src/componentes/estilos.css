@@ -1,0 +1,158 @@
+/* Estilos generales */
+
+/*Diseño para main*/
+body {
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column
+}
+
+main{
+  flex: 1;
+}
+
+
+.bg-custom-gray {
+    background-color: #dcdcdc;
+}
+
+/* Barra de navegación */
+.navbar-brand {
+    font-size: 1.5rem;
+}
+.nav-top-border {
+    border-bottom: 2px solid #333;
+}
+
+/* Sección principal */
+.hero-section {
+            background-color: #e6e6e6;
+            border: 1px solid #777;
+}
+
+
+/* Títulos */
+h1,
+h2 {
+    font-weight: 700;
+}
+
+
+/* Cards */
+.card {
+    transition: transform 0.2s;
+}
+.card:hover {
+    transform: translateY(-5px);
+}
+.product-card {
+    background-color: #e6e6e6;
+    border: none;
+}
+
+/* Imágenes de los productos */
+.card-img-top {
+    height: 500px;
+    object-fit: cover;
+}
+.product-img {
+    height: 180px;
+    object-fit: cover;
+    border: 1px solid #999;
+}
+
+/* Footer */
+footer {
+    margin-top: 0;
+}
+.footer-border {
+    border-top: 2px solid #333;
+}
+
+.form-control {
+    border: 1px solid #dee2e6;
+    transition: all 0.2s ease;
+}
+.form-control:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+.form-label {
+    color: #343a40;
+}
+.btn-primary {
+    transition: all 0.2s ease;
+}
+.btn-primary:hover {
+    transform: translateY(-1px);
+}
+
+/*Carrito*/
+.carrito {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1040; 
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.carritoActivo {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Panel del carrito */
+.panel-carrito {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 340px;
+  max-width: 85vw; 
+  height: 100vh;
+  background-color: #ffffff;
+  z-index: 1050; 
+  display: flex;
+  flex-direction: column;
+  box-shadow: -3px 0 10px rgba(0, 0, 0, 0.2);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.abrirCarrito {
+  transform: translateX(0);
+}
+
+
+/*menu del carrito (cuando ya esta abierto)*/
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.cerrarCarrito {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.itemsCarrito {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.carritoFooter {
+  padding: 1rem;
+  border-top: 1px solid #dee2e6;
+  background-color: #f8f9fa;
+}
