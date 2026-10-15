@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const vacio = { email: '', password: '' };
 
@@ -20,6 +21,8 @@ export default function AccesoAdministrador() {
   const [errores, setErrores] = useState({});
   const [tocados, setTocados] = useState({});
   const [errorLogin, setErrorLogin] = useState(false);
+  
+  const navigate = useNavigate();
 
   function actualizar(evento) {
     const { name, value } = evento.target;
@@ -42,7 +45,8 @@ export default function AccesoAdministrador() {
     if (!Object.keys(nuevos).length) {
       if (campos.email === 'admin@sonidovivo.cl' && campos.password === '123456') {
         setErrorLogin(false);
-        alert('Ingreso exitoso al panel de administrador');
+        localStorage.setItem('admin_autenticado', 'true');
+        navigate('/paneladmin');
       } else {
         setErrorLogin(true);
       }
@@ -51,7 +55,6 @@ export default function AccesoAdministrador() {
 
   return (
     <>
-      
       <main className="container py-5">
         <div className="row justify-content-center">
           <div className="col-md-6 col-lg-5">
@@ -105,7 +108,6 @@ export default function AccesoAdministrador() {
           </div>
         </div>
       </main>
-
     </>
   );
 }

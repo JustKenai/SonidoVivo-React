@@ -1,51 +1,46 @@
-import { normalizar } from './formatos.js';
+const REGEX_EMAIL = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const REGEX_TEXTO_GENERAL = /^[a-zA-ZÁÉÍÓÚáéíóúÑñ0-9\s.,!?¿¡'-]+$/;
+const REGEX_MENSAJE_MULTILINEA = /^[a-zA-ZÁÉÍÓÚáéíóúÑñ0-9\s.,!?¿¡'"\-():;\n\r]+$/;
 
-export function validarContacto(campos) {
-  const errores = {};
-  
-  if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(campos.email.trim())) {
-    errores.email = 'Ingresa un correo electrónico válido.';
-  }
-  
-  if (!/^[a-zA-Z0-9\s.,!?'-]{5,100}$/.test(campos.asunto.trim())) {
-    errores.asunto = 'El asunto debe tener entre 5 y 100 caracteres válidos.';
-  }
-  
-  if (!/^[a-zA-Z0-9\s.,!?'"()\n-:;]{10,500}$/.test(campos.mensaje.trim())) {
-    errores.mensaje = 'El mensaje debe tener entre 10 y 500 caracteres válidos.';
-  }
-
-  return errores;
+export function validarEmail(valor) {
+  if (!valor || valor.trim() === "") return "El correo electrónico es obligatorio.";
+  if (!REGEX_EMAIL.test(valor.trim())) return "Ingresa un correo electrónico válido.";
+  return null;
 }
 
-export function validarProducto(datos, productos, idActual = null) {
+export function validarTexto(valor, nombreCampo = "El campo", min = 3, max = 100) {
+  if (!valor || valor.trim() === "") return `${nombreCampo} es obligatorio.`;
+  if (valor.length < min) return `${nombreCampo} debe tener al menos ${min} caracteres.`;
+  if (valor.length > max) return `${nombreCampo} no puede superar los ${max} caracteres.`;
+  if (!REGEX_TEXTO_GENERAL.test(valor)) return `${nombreCampo} contiene caracteres no permitidos.`;
+  return null;
+}
+
+export function validarSeleccion(valor, mensajeError = "Debes seleccionar una opción.") {
+  if (!valor || valor === "") return mensajeError;
+  return null;
+}
+
+export function validarMensaje(valor, min = 10, max = 500) {
+  if (!valor || valor.trim() === "") return "El mensaje es obligatorio.";
+  if (valor.length < min) return `El mensaje debe tener al menos ${min} caracteres.`;
+  if (valor.length > max) return `El mensaje no puede superar los ${max} caracteres.`;
+  if (!REGEX_MENSAJE_MULTILINEA.test(valor)) return "El mensaje contiene caracteres no permitidos.";
+  return null;
+}
+
+export function validarPassword(valor, min = 6) {
+  if (!valor || valor.trim() === "") return "La contraseña es obligatoria.";
+  if (valor.length < min) return `La contraseña debe tener al menos ${min} caracteres.`;
+  return null;
+}
+
+export function validarProducto(form) {
   const errores = {};
-
-  if (datos.nombre.trim().length < 3) {
-    errores.nombre = 'El nombre debe tener al menos 3 caracteres.';
-  } else if (
-    productos.some(
-      (p) => p.id !== idActual && normalizar(p.nombre) === normalizar(datos.nombre)
-    )
-  ) {
-    errores.nombre = 'Ya existe un instrumento con ese nombre.';
-  }
-
-  if (datos.categoria.trim().length < 3) {
-    errores.categoria = 'Ingresa una categoría válida.';
-  }
-
-  if (!datos.precio || isNaN(datos.precio) || Number(datos.precio) <= 0) {
-    errores.precio = 'El precio debe ser un número mayor a 0.';
-  }
-
-  if (datos.stock === '' || !Number.isInteger(Number(datos.stock)) || Number(datos.stock) < 0) {
-    errores.stock = 'El stock debe ser un entero mayor o igual a 0.';
-  }
-
-  if (!datos.imagen.trim().startsWith('http')) {
-    errores.imagen = 'Ingresa una URL de imagen válida (http/https).';
-  }
-
+  if (!form.nombre.trim()) errores.nombre = 'El nombre es obligatorio';
+  if (!form.categoria) errores.categoria = 'La categoría es obligatoria';
+  if (!form.precio || Number(form.precio) <= 0) errores.precio = 'El precio debe ser mayor a 0';
+  if (!form.stock || Number(form.stock) < 0) errores.stock = 'El stock no puede ser negativo';
+  if (!form.imagen.trim()) errores.imagen = 'La URL de la imagen es obligatoria';
   return errores;
 }

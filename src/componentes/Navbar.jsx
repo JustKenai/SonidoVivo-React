@@ -22,7 +22,7 @@ export default function Navbar() {
             </li>
             <li className="nav-item">
               <Link className="btn nav-link text-start" to="/carrito">
-                Carrito (<span id="cart-counter">0</span>)
+                Carrito
               </Link>
             </li>
             <li className="nav-item">

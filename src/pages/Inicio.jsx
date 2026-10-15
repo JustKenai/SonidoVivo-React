@@ -34,7 +34,7 @@ function Inicio() {
 
         <section className="bg-light py-5">
           <div className="container">
-            <h2 className="text-center mb-4">
+            <h2 className="text-center text-warning mb-4">
               Productos destacados 🔥
             </h2>
 
